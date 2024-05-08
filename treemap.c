@@ -62,7 +62,7 @@ void insertTreeMap(TreeMap *tree, void *key, void *value) {
       if (comparacion == 0) {
         return;
       }
-      else if(comparacion < 0){
+      else if(comparacion < 1){
         if(temp->right == NULL){
           temp->right = nuevoNodo;
           break;
