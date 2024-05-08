@@ -101,50 +101,53 @@ void transplant(TreeMap *tree, TreeNode *oldNode, TreeNode *newNode) {
     }
 }
 
-void removeNode(TreeMap *tree, TreeNode *node) {
-    // Caso 1: Nodo sin hijos
-    if (node->left == NULL && node->right == NULL) {
-        if (node->parent == NULL) {
-            // Nodo raíz sin hijos
+
+void removeNode(TreeMap * tree, TreeNode* node) {
+    if(node->left == NULL && node->right == NULL)
+    {
+        if(node -> parent == NULL)
+        {
             tree->root = NULL;
-        } else if (node == node->parent->left) {
-            // Nodo a la izquierda de su padre
+        }
+        else if (node == node->parent->left)
+        {
             node->parent->left = NULL;
-        } else {
-            // Nodo a la derecha de su padre
+        }
+        else
+        {
             node->parent->right = NULL;
         }
         free(node);
         return;
     }
 
-    // Caso 2: Nodo con un solo hijo
-    if (node->left == NULL) {
-        // Nodo solo con hijo derecho
-        TreeNode *hijo = node->right;
-        transplant(tree, node, hijo);
-        free(node);
-    } else if (node->right == NULL) {
-        // Nodo solo con hijo izquierdo
-        TreeNode *hijo = node->left;
-        transplant(tree, node, hijo);
-        free(node);
-    } else {
-        // Caso 3: Nodo con dos hijos
-        // Encontrar el sucesor
-        TreeNode *sucesor = minimum(node->right);
-        // Si el sucesor no es hijo directo del nodo
-        if (sucesor->parent != node) {
-            transplant(tree, sucesor, sucesor->right);
-            sucesor->right = node->right;
-            sucesor->right->parent = sucesor;
-        }
-        // Reemplazar el nodo por su sucesor
-        transplant(tree, node, sucesor);
-        sucesor->left = node->left;
-        sucesor->left->parent = sucesor;
-        free(node);
+    TreeNode * hijo;
+    if(node->left != NULL)
+    {
+        hijo = node->left;
     }
+    else
+    {
+        hijo = node->right;
+    }
+
+    if(node->parent == NULL)
+    {
+        tree->root = hijo;
+    }
+    else if(node == node->parent->left)
+    {
+        node->parent->left = hijo;
+    }
+    else
+    {
+        node->parent->right = hijo;
+    }
+    if(hijo != NULL)
+    {
+        hijo->parent = node->parent;
+    }
+
 }
 
 
