@@ -131,6 +131,7 @@ void removeNode(TreeMap *tree, TreeNode *node)
   {
     hijo->parent = node->parent;
   }
+  free(node);
   
 }
 
