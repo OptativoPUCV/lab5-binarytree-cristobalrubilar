@@ -106,3 +106,42 @@ Wed 08 May 2024 02:17:27 AM UTC:
  tests:  8|5
 total_score: 15/70
 1d242f4
+Wed 08 May 2024 02:19:48 AM UTC: 
+ treemap.c | 98 ++++++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 46 insertions(+), 52 deletions(-)
+In file included from test.c:4:
+treemap.c: In function ‘removeNode’:
+treemap.c:110:33: error: ‘TreeNode’ has no member named ‘key’
+  110 |       while(temp != NULL && temp->key != key) {
+      |                                 ^~
+treemap.c:110:42: error: ‘key’ undeclared (first use in this function); did you mean ‘key_t’?
+  110 |       while(temp != NULL && temp->key != key) {
+      |                                          ^~~
+      |                                          key_t
+treemap.c:110:42: note: each undeclared identifier is reported only once for each function it appears in
+treemap.c:112:24: error: ‘TreeNode’ has no member named ‘key’
+  112 |           if(key < temp->key)
+      |                        ^~
+treemap.c:156:34: error: ‘TreeNode’ has no member named ‘key’
+  156 |           int succKey = successor->key;
+      |                                  ^~
+treemap.c:157:37: error: ‘TreeNode’ has no member named ‘data’
+  157 |           void* succData = successor->data;
+      |                                     ^~
+treemap.c:158:28: error: passing argument 2 of ‘removeNode’ makes pointer from integer without a cast [-Werror=int-conversion]
+  158 |           removeNode(tree, succKey);  // Eliminamos el sucesor
+      |                            ^~~~~~~
+      |                            |
+      |                            int
+treemap.c:105:42: note: expected ‘TreeNode *’ but argument is of type ‘int’
+  105 | void removeNode(TreeMap *tree, TreeNode *node) {
+      |                                ~~~~~~~~~~^~~~
+treemap.c:159:15: error: ‘TreeNode’ has no member named ‘key’
+  159 |           temp->key = succKey;
+      |               ^~
+treemap.c:160:15: error: ‘TreeNode’ has no member named ‘data’
+  160 |           temp->data = succData;
+      |               ^~
+cc1: all warnings being treated as errors
+Compilation failed
+328febd
