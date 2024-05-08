@@ -102,53 +102,72 @@ void transplant(TreeMap *tree, TreeNode *oldNode, TreeNode *newNode) {
 }
 
 
-void removeNode(TreeMap * tree, TreeNode* node) {
-    if(node->left == NULL && node->right == NULL)
-    {
-        if(node -> parent == NULL)
-        {
+void removeNode(TreeMap *tree, TreeNode *node) {
+    if (node == NULL) {
+        return; // No hay nodo para eliminar
+    }
+
+    // Caso 1: El nodo a eliminar no tiene hijos
+    if (node->left == NULL && node->right == NULL) {
+        if (node->parent == NULL) {
+            // El nodo es la raíz del árbol
             tree->root = NULL;
-        }
-        else if (node == node->parent->left)
-        {
+        } else if (node == node->parent->left) {
+            // El nodo es un hijo izquierdo
             node->parent->left = NULL;
-        }
-        else
-        {
+        } else {
+            // El nodo es un hijo derecho
             node->parent->right = NULL;
         }
         free(node);
         return;
     }
 
-    TreeNode * hijo;
-    if(node->left != NULL)
-    {
-        hijo = node->left;
-    }
-    else
-    {
-        hijo = node->right;
-    }
-
-    if(node->parent == NULL)
-    {
-        tree->root = hijo;
-    }
-    else if(node == node->parent->left)
-    {
-        node->parent->left = hijo;
-    }
-    else
-    {
-        node->parent->right = hijo;
-    }
-    if(hijo != NULL)
-    {
-        hijo->parent = node->parent;
+    // Caso 2: El nodo a eliminar tiene un solo hijo
+    if (node->left == NULL) {
+        // Si solo tiene hijo derecho
+        if (node->parent == NULL) {
+            // El nodo es la raíz del árbol
+            tree->root = node->right;
+            node->right->parent = NULL;
+        } else if (node == node->parent->left) {
+            // El nodo es un hijo izquierdo
+            node->parent->left = node->right;
+            node->right->parent = node->parent;
+        } else {
+            // El nodo es un hijo derecho
+            node->parent->right = node->right;
+            node->right->parent = node->parent;
+        }
+        free(node);
+        return;
     }
 
+    if (node->right == NULL) {
+        // Si solo tiene hijo izquierdo
+        if (node->parent == NULL) {
+            // El nodo es la raíz del árbol
+            tree->root = node->left;
+            node->left->parent = NULL;
+        } else if (node == node->parent->left) {
+            // El nodo es un hijo izquierdo
+            node->parent->left = node->left;
+            node->left->parent = node->parent;
+        } else {
+            // El nodo es un hijo derecho
+            node->parent->right = node->left;
+            node->left->parent = node->parent;
+        }
+        free(node);
+        return;
+    }
+
+    // Caso 3: El nodo a eliminar tiene dos hijos
+    TreeNode *successor = minimum(node->right);
+    node->pair = successor->pair; // Copiar el par del sucesor al nodo actual
+    removeNode(tree, successor); // Eliminar el sucesor
 }
+
 
 
 void eraseTreeMap(TreeMap *tree, void *key) {
