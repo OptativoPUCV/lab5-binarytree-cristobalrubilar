@@ -145,3 +145,9 @@ treemap.c:160:15: error: ‘TreeNode’ has no member named ‘data’
 cc1: all warnings being treated as errors
 Compilation failed
 328febd
+Wed 08 May 2024 02:21:15 AM UTC: 
+ treemap.c | 90 ++++++++++++++++-----------------------------------------------
+ 1 file changed, 23 insertions(+), 67 deletions(-)
+ tests:  8|5
+total_score: 15/70
+c657d22
