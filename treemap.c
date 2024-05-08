@@ -128,6 +128,9 @@ void eraseTreeMap(TreeMap *tree, void *key) {
     return;
   TreeNode *node = tree->current;
   removeNode(tree, node);
+
+  if(tree->current == node)
+    tree->current = NULL;
 }
 
 Pair *searchTreeMap(TreeMap *tree, void *key) { 
