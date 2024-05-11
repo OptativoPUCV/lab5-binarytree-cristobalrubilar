@@ -95,29 +95,29 @@ void removeNode(TreeMap *tree, TreeNode *node) {
     } else {
       node->parent->right = NULL;
     }
-    free(node);
-    return;
   }
-
-  TreeNode *hijo = NULL;
-  if (node->left != NULL) {
-    hijo = minimum(node->left);
-  } else {
-    hijo = minimum(node->right);
+  else if(node->left != NULL || node->right != NULL)
+  {
+    TreeNode *sucesor = minimum(node->right);
+    node->pair = sucesor->pair;
+    removeNode(tree,sucesor);
   }
+else{
+  // Caso 3: El nodo a eliminar tiene solo un hijo
+  TreeNode *hijo = (node->left != NULL) ? node->left : node->right;
 
+  // Actualizar los punteros del padre
   if (node->parent == NULL) {
-    tree->root = hijo;
+      tree->root = hijo;
   } else if (node == node->parent->left) {
-    node->parent->left = hijo;
+      node->parent->left = hijo;
   } else {
-    node->parent->right = hijo;
+      node->parent->right = hijo;
   }
 
   if (hijo != NULL) {
-    hijo->parent = node->parent;
+      hijo->parent = node->parent;
   }
-  free(node);
 }
 
 void eraseTreeMap(TreeMap *tree, void *key) {
