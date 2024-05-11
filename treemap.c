@@ -152,7 +152,27 @@ Pair *searchTreeMap(TreeMap *tree, void *key) {
   return NULL;
 }
 
-Pair *upperBound(TreeMap *tree, void *key) { return NULL; }
+Pair *upperBound(TreeMap *tree, void *key) {
+
+  TreeNode *temp = tree->root;
+    while(temp != NULL)
+      {
+        if(tree->lower_than(key, temp->pair->key))
+        {
+          temp = temp->left;
+        }
+        else if(tree->lower_than(temp->pair->key, key))
+        {
+          temp = temp->right;
+        }
+        else
+        {
+          return temp->pair;
+        }
+      }
+  return temp->parent->pair;
+  }
+}
 
 Pair *firstTreeMap(TreeMap *tree) {
   TreeNode *menorDato = minimum(tree->root);
