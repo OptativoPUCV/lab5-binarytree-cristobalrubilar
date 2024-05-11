@@ -129,49 +129,43 @@ void eraseTreeMap(TreeMap *tree, void *key) {
   TreeNode *node = tree->current;
   removeNode(tree, node);
 
-  if(tree->current == node)
+  if (tree->current == node)
     tree->current = NULL;
 }
 
-Pair *searchTreeMap(TreeMap *tree, void *key) { 
+Pair *searchTreeMap(TreeMap *tree, void *key) {
 
-    TreeNode *temp = tree->root;
-  while(temp != NULL)
-    if(is_equal(tree, temp->pair->key, key))
-    {
+  TreeNode *temp = tree->root;
+  while (temp != NULL)
+    if (is_equal(tree, temp->pair->key, key)) {
       tree->current = temp;
       return temp->pair;
+    } else if (tree->lower_than(key, temp->pair->key)) {
+      temp = temp->left;
+    } else {
+      temp = temp->right;
     }
-  else if(tree->lower_than(key, temp->pair->key))
-  {
-    temp = temp->left;
-  }
-  else{
-    temp = temp->right;
-  }
   return NULL;
 }
 
 Pair *upperBound(TreeMap *tree, void *key) {
 
   TreeNode *temp = tree->root;
-    while(temp != NULL)
-      {
-        if(tree->lower_than(key, temp->pair->key))
-        {
-          temp = temp->left;
-        }
-        else if(tree->lower_than(temp->pair->key, key))
-        {
-          temp = temp->right;
-        }
-        else
-        {
-          return temp->pair;
-        }
-      }
-  return temp->parent->pair;
+  TreeNode *padre = NULL;
+  while (temp != NULL) {
+    if (tree->lower_than(key, temp->pair->key)) {
+      padre = temp;
+      temp = temp->left;
+    } else if (tree->lower_than(temp->pair->key, key)) {
+      padre = temp;
+      temp = temp->right;
+    } else {
+      return temp->pair;
+    }
   }
+
+  return padre->pair;
+}
 
 Pair *firstTreeMap(TreeMap *tree) {
   TreeNode *menorDato = minimum(tree->root);
