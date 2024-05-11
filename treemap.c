@@ -164,6 +164,13 @@ Pair *upperBound(TreeMap *tree, void *key) {
     }
   }
 
+  while (padre != NULL) {
+    if (tree->lower_than(padre->pair->key, key)) {
+      padre = padre->parent;
+    } else {
+      break;
+    }
+  }
   return padre->pair;
 }
 
