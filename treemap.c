@@ -171,8 +171,14 @@ Pair *upperBound(TreeMap *tree, void *key) {
       break;
     }
   }
-  return padre->pair;
+  if (padre != NULL) {
+    return padre->pair;
+  } else {
+    // Manejar el caso cuando padre es NULL (no hay límite superior)
+    return NULL;
+  }
 }
+
 
 Pair *firstTreeMap(TreeMap *tree) {
   TreeNode *menorDato = minimum(tree->root);
