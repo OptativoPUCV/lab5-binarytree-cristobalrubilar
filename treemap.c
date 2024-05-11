@@ -95,28 +95,26 @@ void removeNode(TreeMap *tree, TreeNode *node) {
     } else {
       node->parent->right = NULL;
     }
-  }
-  else if(node->left != NULL || node->right != NULL)
-  {
+  } else if (node->left != NULL || node->right != NULL) {
     TreeNode *sucesor = minimum(node->right);
     node->pair = sucesor->pair;
-    removeNode(tree,sucesor);
-  }
-else{
-  // Caso 3: El nodo a eliminar tiene solo un hijo
-  TreeNode *hijo = (node->left != NULL) ? node->left : node->right;
-
-  // Actualizar los punteros del padre
-  if (node->parent == NULL) {
-      tree->root = hijo;
-  } else if (node == node->parent->left) {
-      node->parent->left = hijo;
+    removeNode(tree, sucesor);
   } else {
-      node->parent->right = hijo;
-  }
+    // Caso 3: El nodo a eliminar tiene solo un hijo
+    TreeNode *hijo = (node->left != NULL) ? node->left : node->right;
 
-  if (hijo != NULL) {
+    // Actualizar los punteros del padre
+    if (node->parent == NULL) {
+      tree->root = hijo;
+    } else if (node == node->parent->left) {
+      node->parent->left = hijo;
+    } else {
+      node->parent->right = hijo;
+    }
+
+    if (hijo != NULL) {
       hijo->parent = node->parent;
+    }
   }
 }
 
