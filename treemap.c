@@ -194,7 +194,6 @@ Pair *nextTreeMap(TreeMap *tree) {
     return tree->current->pair;
   }
   else{
-    TreeNode *padre = temp->parent;
     while (padre != NULL && temp == padre->right)
       {
         temp = padre;

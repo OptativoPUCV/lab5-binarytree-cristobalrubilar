@@ -222,3 +222,9 @@ treemap.c:190:13: error: unused variable ‘padre’ [-Werror=unused-variable]
 cc1: all warnings being treated as errors
 Compilation failed
 f88057f
+Sat 11 May 2024 09:47:02 PM UTC: 
+ treemap.c | 1 -
+ 1 file changed, 1 deletion(-)
+ tests:  25|2
+total_score: 55/70
+9ceb727
