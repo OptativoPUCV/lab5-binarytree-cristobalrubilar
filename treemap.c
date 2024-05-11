@@ -172,7 +172,6 @@ Pair *upperBound(TreeMap *tree, void *key) {
       }
   return temp->parent->pair;
   }
-}
 
 Pair *firstTreeMap(TreeMap *tree) {
   TreeNode *menorDato = minimum(tree->root);
