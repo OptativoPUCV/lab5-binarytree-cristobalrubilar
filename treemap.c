@@ -185,4 +185,21 @@ Pair *firstTreeMap(TreeMap *tree) {
   return menorDato->pair;
 }
 
-Pair *nextTreeMap(TreeMap *tree) { return NULL; }
+Pair *nextTreeMap(TreeMap *tree) {
+  TreeNode *temp = tree->current;
+  TreeNode *padre = temp->parent;
+  if (temp->right != NULL)
+  {
+    tree->current = minimum(temp->right);
+    return tree->current->pair;
+  }
+  else{
+    TreeNode *padre = temp->parent;
+    while (padre != NULL && temp == padre->right)
+      {
+        temp = padre;
+        padre = padre->parent;
+      }
+  }
+  return tree->current->pair;
+}
